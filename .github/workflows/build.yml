@@ -40,7 +40,7 @@ jobs:
       - name: 🧪 Tests
         run: |
           grep -q "eu01" "web/eu01.html" || exit 9
-          grep -q "Compute Optimized Server" "web/g2i.1.html" || exit 9
+          grep -q "General Purpose Server" "web/g2i.1.html" || exit 9
           jq -e '.[] | .instanceType' "web/instances.json" | grep -q "g2i.1" || exit 9
 
       - name: 🌍 Setup Pages
