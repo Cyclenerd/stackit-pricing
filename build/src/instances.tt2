@@ -1,0 +1,78 @@
+[%-
+	url = '/'_ pageFile;
+	title = pageTitle;
+	description = pageDescription;
+-%]
+[%- PROCESS include_header.tt2 -%]
+[%- PROCESS include_instances_header.tt2 -%]
+
+<h1>[% pageHeading %]</h1>
+
+<blockquote class="blockquote">
+<p>
+[% pageIntro %]
+STACKIT currently operates <mark>[% regions.size %]</mark> regions in the European Union.
+Prices are shown for Single-AZ; Multi-AZ (metro, region code with <code>-m</code>) is roughly double.
+All prices in <strong>EUR</strong>, net, pay-per-use.
+</p>
+</blockquote>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="vcpu"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="6">Instance Type</th>
+	<th scope="col">Regions</th>
+	<th scope="col" colspan="2">Single-AZ Price</th>
+	<th scope="col" colspan="2">Multi-AZ Price</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-field="vcpu" data-sortable="true">vCPU</th>
+	<th scope="col" data-sortable="true">Memory</th>
+	<th scope="col" data-sortable="true">Hardware</th>
+	<th scope="col" data-sortable="true">Arch</th>
+	<th scope="col"></th>
+	<th scope="col" data-sortable="true">#</th>
+	<!-- Single-AZ -->
+	<th scope="col" title="Lowest price per hour (Single-AZ)" data-sortable="true">per Hour</th>
+	<th scope="col" title="Lowest price per month (Single-AZ)" data-sortable="true">per Month</th>
+	<!-- Multi-AZ -->
+	<th scope="col" title="Lowest price per hour (Multi-AZ / metro)" data-sortable="true">per Hour</th>
+	<th scope="col" title="Lowest price per month (Multi-AZ / metro)" data-sortable="true">per Month</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH instance IN instances -%]
+<tr>
+<td><a href="/[% instance.instanceType %].html" title="STACKIT instance type '[% instance.instanceType %]'"><code>[% instance.instanceType %]</code></a></td>
+<td class="text-nowrap">[% instance.vCpu %]</td>
+<td class="gb">[% instance.ramGb %]</td>
+<td>[% badgeHardware(instance) %]</td>
+<td><small class="text-muted">[% instance.cpuArchitecture %]</small></td>
+<td>
+	[% badgeFamily(instance) %]
+	[% badgeLocalDisk(instance) %]
+	[% badgeShared(instance) %]
+</td>
+<td>[% instance.regionCount %]</td>
+<!-- Single-AZ -->
+[% IF instance.minHour %]<td class="eur">[% instance.minHour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.minMonth %]<td class="eur">[% instance.minMonth | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+<!-- Multi-AZ -->
+[% IF instance.minHourMetro %]<td class="eur">[% instance.minHourMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.minMonthMetro %]<td class="eur">[% instance.minMonthMetro | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[% PROCESS include_footer.tt2 %]

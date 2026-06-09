@@ -1,0 +1,60 @@
+<div class="row mt-2">
+<div class="col">
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a [% IF activeFilter == 'all' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/instances.html">
+			All
+			<span class="badge rounded-pill text-bg-secondary">[% counts.all %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'compute' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/compute-optimized.html">
+			Compute
+			<span class="badge rounded-pill text-bg-secondary">[% counts.compute %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'general' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/general-purpose.html">
+			General Purpose
+			<span class="badge rounded-pill text-bg-secondary">[% counts.general %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'memory' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/memory-optimized.html">
+			Memory
+			<span class="badge rounded-pill text-bg-secondary">[% counts.memory %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'tiny' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/tiny.html">
+			Tiny
+			<span class="badge rounded-pill text-bg-secondary">[% counts.tiny %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'gpu' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/gpu.html">
+			GPU
+			<span class="badge rounded-pill text-bg-secondary">[% counts.gpu %]</span>
+		</a>
+	</li>
+	<li class="nav-item ms-3">
+		<a [% IF activeFilter == 'intel' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/intel.html">
+			Intel
+			<span class="badge rounded-pill text-bg-secondary">[% counts.intel %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'amd' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/amd.html">
+			AMD
+			<span class="badge rounded-pill text-bg-secondary">[% counts.amd %]</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a [% IF activeFilter == 'arm' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/arm.html">
+			ARM
+			<span class="badge rounded-pill text-bg-secondary">[% counts.arm %]</span>
+		</a>
+	</li>
+</ul>
+</div> <!-- // col -->
+</div> <!-- // row -->

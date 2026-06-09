@@ -1,0 +1,30 @@
+[%- MACRO badgeHardware(instance) BLOCK -%]
+[% IF instance.cpuVendor == "Intel"  %]<span class="badge text-bg-primary">Intel</span>[% END %]
+[% IF instance.cpuVendor == "AMD"    %]<span class="badge text-bg-danger">AMD</span>[% END %]
+[% IF instance.cpuVendor == "Ampere" %]<span class="badge text-bg-success">Ampere</span>[% END %]
+[% IF instance.gpuVendor == "NVIDIA" %]<span class="badge text-bg-info">NVIDIA</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeFamily(instance) BLOCK -%]
+[% IF instance.instanceFamilyName == "Compute Optimized Server" %]<span class="badge text-bg-warning" title="Compute optimized">Compute</span>[% END %]
+[% IF instance.instanceFamilyName == "General Purpose Server"   %]<span class="badge text-bg-secondary" title="General purpose">General</span>[% END %]
+[% IF instance.instanceFamilyName == "Memory Optimized Server"  %]<span class="badge text-bg-primary" title="Memory optimized">Memory</span>[% END %]
+[% IF instance.instanceFamilyName == "Tiny Server"              %]<span class="badge text-bg-light" title="Tiny / shared">Tiny</span>[% END %]
+[% IF instance.instanceFamilyName == "GPU Server"               %]<span class="badge text-bg-info" title="GPU">GPU</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeGpu(instance) BLOCK -%]
+[% IF instance.gpu %]<span class="badge text-bg-info" title="GPU server">GPU</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeLocalDisk(instance) BLOCK -%]
+[% IF instance.localDisk %]<span class="badge text-bg-dark" title="Local disk">Local Disk</span>[% END %]
+[%- END -%]
+
+[%- MACRO badgeShared(instance) BLOCK -%]
+[% IF instance.cpuOverprovisioning %]<span class="badge text-bg-secondary" title="vCPUs are over-provisioned (shared)">Shared</span>[% ELSE %]<span class="badge text-bg-success" title="Dedicated vCPUs">Dedicated</span>[% END %]
+[%- END -%]
+
+[%- MACRO booleanYesNo(value) BLOCK -%]
+[% IF value %]yes[% ELSE %]no[% END %]
+[%- END -%]

@@ -1,0 +1,26 @@
+</main>
+<footer class="footer py-3 mt-2 text-muted">
+<p>
+	Copyright [% USE date; date.format(date.now, '%Y'); %] <a href="https://www.nkn-it.de/">Nils Knieling</a>
+	·
+	All rights reserved
+</p>
+<p>
+	The accuracy of the data is not guaranteed. Please <a href="[% site.github.issues %]">report issues</a> you see.
+	This is an unofficial, community-built tool and is <strong>not</strong> affiliated with, endorsed by, or sponsored by STACKIT or Schwarz Digits.
+	Pricing data is sourced from the public STACKIT PIM API.
+</p>
+<p>
+	Last Update: <a href=[% IF gitHubRunId %]"[% gitHubServerUrl %]/[% gitHubRepository %]/actions/runs/[% gitHubRunId %]"[% ELSE %]"#"[% END %]>[% gmtime %]</a> (GMT)
+	·
+	<a href="https://www.nkn-it.de/imprint.html">Imprint</a>
+</p>
+</footer>
+</div> <!-- // container -->
+
+<script src="[% site.bootstrap.js %]"></script>
+<script src="[% site.jQuery.js %]"></script>
+<script src="[% site.bootstrapTable.js %]"></script>
+<script src="[% site.bootstrapTableStickyHeader.js %]"></script>
+</body>
+</html>

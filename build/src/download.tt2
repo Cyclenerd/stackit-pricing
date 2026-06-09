@@ -1,0 +1,68 @@
+[%-
+	url = '/download.html';
+	title = 'Download all STACKIT Compute Instance Types';
+	description = 'Download CSV & SQL exports of every STACKIT Compute Engine instance type with pricing for both regions. Compare, filter, optimize!';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>Download</h1>
+
+<p>
+Get all STACKIT Compute Engine instance types with one click!
+Download a handy CSV file or a compressed SQL dump containing all instance types,
+regions and prices.
+Open the CSV with your favorite spreadsheet software (MS Excel, LibreOffice, Google Sheets)
+or import the SQL data into your preferred database (like SQLite).
+</p>
+
+<h2>Spreadsheet</h2>
+<p>Comma Separated Values (CSV) file with all instance types, regions and prices.</p>
+<p>
+	<a class="btn btn-primary" href="/stackit-instances.csv?[% timestamp %]" download="stackit-instances.csv">
+		Download CSV ([% csvFileSize %] MB)
+	</a>
+</p>
+
+<h2>Database</h2>
+<p>Gzip compressed Structured Query Language (SQL) export with all instance types, regions, block storage and prices.</p>
+<p>
+	<a class="btn btn-primary" href="/stackit.sql.gz?[% timestamp %]" download="stackit.sql.gz">
+		Download SQL ([% sqlFileSize %] MB)
+	</a>
+</p>
+
+<h2>Command Line</h2>
+
+<p>
+With the SQL export, you can analyze all STACKIT Compute Engine instance types using
+powerful command-line tools like <code>sqlite3</code>.
+</p>
+
+<pre><code><span class="text-muted"># Download SQL export</span>
+curl -O [% site.url %]/stackit.sql.gz
+<span class="text-muted"># Decompress SQL export</span>
+gzip -d stackit-instances.sql.gz
+<span class="text-muted"># Import SQL dump</span>
+sqlite3 stackit.db &lt; stackit.sql
+<span class="text-muted"># Query instance types</span>
+sqlite3 stackit.db</code></pre>
+
+<p>Example SQL (cheapest 8+ vCPU instances in <code>eu01</code>, Single-AZ):</p>
+<pre><code><span class="text-danger">SELECT</span> T."instanceType", T."vCpu", T."ramGb", P."priceMonth"
+<span class="text-danger">FROM</span> "instance-prices" P
+<span class="text-danger">INNER JOIN</span> "instance-types" T <span class="text-danger">ON</span> P."instanceType" <span class="text-danger">=</span> T."instanceType"
+<span class="text-danger">WHERE</span> P."region" <span class="text-danger">=</span> <span class="text-warning">'eu01'</span>
+<span class="text-danger">AND</span> P."metro" <span class="text-danger">=</span> <span class="text-primary">0</span>
+<span class="text-danger">AND</span> T."vCpu" <span class="text-danger">&#62;=</span> <span class="text-primary">8</span>
+<span class="text-danger">ORDER BY</span> P."priceMonth"
+<span class="text-danger">LIMIT</span> <span class="text-primary">5</span>;</code></pre>
+
+<h2>Open Source</h2>
+
+<p>
+This project is open source under the Apache License (version 2.0) and hosted on
+<a href="[% site.github.repo %]">GitHub</a>.
+Your contributions and pull requests are welcome!
+</p>
+
+[% PROCESS include_footer.tt2 %]

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+<title>[% IF title %][% title %][% ELSE %][% site.title %][% END %]</title>
+[% IF url %]<link rel="canonical" href="[% site.url %][% url %]">[% END %]
+[% PROCESS include_favicon.tt2 %]
+<link rel="stylesheet" href="[% site.bootstrap.css %]">
+<link rel="stylesheet" href="[% site.bootstrapTable.css %]">
+<link rel="stylesheet" href="[% site.bootstrapTableStickyHeader.css %]">
+[% PROCESS include_meta.tt2 %]
+<style>
+.ghz::after  { content: " GHz"; }
+.eur::before { content: "€ "; }
+.gb::after   { content: " GB"; }
+</style>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand mb-0 h1" href="/">
+				<span class="d-none d-lg-block">STACKIT 💸 Pricing</span>
+				<span class="d-lg-none">STACKIT 💸</span>
+			</a>
+			<div class="text-end">
+				<div class="d-none d-lg-block">
+					<a class="btn btn-success" href="/picker.html" role="button">✅ Instance Picker</a>
+					<a class="btn btn-primary" href="/download.html" role="button">💾 Download</a>
+				</div>
+				<div class="d-lg-none">
+					<a class="btn btn-success" href="/picker.html" role="button">✅</a>
+					<a class="btn btn-primary" href="/download.html" role="button">💾</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class="container-fluid">
+<main>
+
+<div class="alert alert-light alert-dismissible mt-2" role="alert" id="please-star-on-github">
+	Spread the word and help others discover this webapp.
+	Show some ❤️ with a <a href="[% site.github.repo %]" target="_blank">⭐ on GitHub</a>!
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" tabindex="-1"></button>
+</div>
+<script>
+var myGitHubAlert = document.getElementById('please-star-on-github');
+let cookie = decodeURIComponent(document.cookie); // Get cookie
+if (cookie.search('hideGitHubAlert') >= 0) {
+	myGitHubAlert.classList.add("visually-hidden");
+}
+myGitHubAlert.addEventListener('closed.bs.alert', function () {
+	const d = new Date();
+	d.setTime(d.getTime() + (30*24*60*60*1000)); // 30 day
+	document.cookie = "hideGitHubAlert=true;expires="+d.toUTCString()+";SameSite=Strict;Secure";
+	console.log('GitHub alert closed');
+})
+</script>
+
+<div class="row mt-2 mb-2">
+<div class="col">
+<ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a [% IF template.name == 'index.tt2' %]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %] href="/">👋 Hi</a>
+	</li>
+	<li class="nav-item">
+		<a [%- IF
+				template.name == 'instance.tt2' ||
+				template.name == 'instances.tt2'
+			-%]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %]
+			href="/instances.html">Instance Types</a>
+	</li>
+	<li class="nav-item">
+		<a [%- IF
+				template.name == 'block-storage.tt2'
+			-%]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %]
+			href="/block-storage.html">Block Storage</a>
+	</li>
+	<li class="nav-item">
+		<a [%- IF
+				template.name == 'region.tt2' ||
+				template.name == 'regions.tt2'
+			-%]class="nav-link active" aria-current="page"[% ELSE %]class="nav-link"[% END %]
+			href="/regions.html">Regions</a>
+	</li>
+</ul>
+</div> <!-- // col -->
+</div> <!-- // row -->

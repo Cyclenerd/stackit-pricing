@@ -1,0 +1,70 @@
+[%-
+	url = '/';
+	title = 'STACKIT Compute Engine Pricing & Instance Type Comparison';
+	description = 'Compare all STACKIT Compute Engine instance types across both regions (eu01, eu02). Filter by family, hardware (Intel, AMD, ARM, GPU) and compare Single-AZ and Multi-AZ pricing.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>STACKIT Compute Engine Pricing</h1>
+
+<p>
+Struggling to pick the right STACKIT Compute Engine instance type?
+This webapp consolidates the public STACKIT price list into one searchable place,
+so you can compare vCPU, memory, hardware and price across both STACKIT regions
+without hopping between docs.
+</p>
+
+<h2>Instance Types</h2>
+
+<p>
+Explore <a href="/instances.html">[% instances.size %] STACKIT Compute Engine instance types</a> at a glance!
+Filter by family
+(<a href="/compute-optimized.html">Compute Optimized</a>,
+<a href="/general-purpose.html">General Purpose</a>,
+<a href="/memory-optimized.html">Memory Optimized</a>,
+<a href="/tiny.html">Tiny</a>,
+<a href="/gpu.html">GPU</a>)
+or by hardware
+(<a href="/intel.html">Intel</a>,
+<a href="/amd.html">AMD</a>,
+<a href="/arm.html">ARM</a>).
+</p>
+
+<h2>Regions</h2>
+
+<p>
+STACKIT currently runs <a href="/regions.html">[% regions.size %] regions</a> in the European Union:
+[%- FOREACH region IN regions %]
+<a href="/[% region.region %].html"><code>[% region.region %]</code></a> ([% region.regionName %])[% UNLESS loop.last %],[% END %]
+[%- END -%].
+Each region offers a Single-AZ and a Multi-AZ (metro, <code>-m</code>) availability tier.
+</p>
+
+<h2>Block Storage</h2>
+
+<p>
+Compare <a href="/block-storage.html">STACKIT Block Storage pricing</a> too:
+capacity volumes and backups billed per GB, plus fixed performance classes
+(billed per disk) with defined IOPS and throughput &mdash; across both regions
+and availability tiers.
+</p>
+
+<h2>Instance Picker</h2>
+
+<p>
+The powerful <a href="/picker.html">Instance Picker</a> lets you compare every
+STACKIT instance type across regions with granular, sortable filters on vCPU, memory,
+hardware, architecture and price.
+</p>
+
+<h2>About the data</h2>
+
+<p>
+Pricing is imported from the public STACKIT Price Information Model (PIM) API
+(<code>https://pim.api.stackit.cloud/v1/skus</code>).
+Only Compute Engine "Virtual Machines" (including GPU servers) are shown.
+Additional details such as exact CPU architecture, CPU model and GPU model are
+curated separately and can be extended over time.
+</p>
+
+[% PROCESS include_footer.tt2 %]

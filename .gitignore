@@ -1,0 +1,12 @@
+/web/**
+/build/*.csv
+/build/*.txt
+!/build/last_build.txt
+/build/*.gz
+/build/stackit.sql
+/build/*.json
+!/build/pricing.json
+/build/*.conf
+/build/*.db
+/build/*.db-journal
+.~lock*

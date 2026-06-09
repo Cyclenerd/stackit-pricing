@@ -1,0 +1,142 @@
+[%-
+	url = '/'_ instance.instanceType _'.html';
+	title = instance.instanceType _' - STACKIT Compute Instance Type';
+	description = 'STACKIT Compute Engine instance type '_ instance.instanceType _' ('_ instance.instanceFamilyName _') with '_ instance.vCpu _' vCPUs and '_ instance.ramGb _' GB memory. Available in '_ instance.regionCount _' STACKIT region(s).';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>STACKIT Instance Type [% instance.instanceType %]</h1>
+
+<blockquote class="blockquote">
+	<p>
+		STACKIT Compute Engine instance type <code>[% instance.instanceType %]</code>
+		([% instance.instanceFamilyName %])
+		with <mark>[% instance.vCpu %] vCPU[% IF instance.vCpu > 1 %]s[% END %]</mark> and
+		<mark>[% instance.ramGb %] GB</mark> memory.
+		[%- IF instance.gpu %] Equipped with <mark>[% instance.gpuCount %] GPU[% IF instance.gpuCount > 1 %]s[% END %]</mark>.[% END %]
+		Available in [% instance.regionCount %] STACKIT region[% IF instance.regionCount > 1 %]s[% END %].
+	</p>
+</blockquote>
+
+<p class="d-grid gap-2 d-lg-block">
+	<a class="btn btn-success" href="/picker.html?name=[% instance.instanceType %]" role="button">✅ Open in Instance Picker</a>
+	<a class="btn btn-secondary" href="#prices" role="button">Price per Region</a>
+</p>
+
+<div class="row">
+<div class="col-xxl-6">
+
+<h2>Technical Specs</h2>
+<p>Technical facts about the STACKIT Compute Engine instance type <code>[% instance.instanceType %]</code>.</p>
+
+<div class="table-responsive">
+<table class="table table-sm table-hover table-striped table-bordered">
+	<tr><th>Instance Type (flavor)</th><td><code>[% instance.instanceType %]</code></td></tr>
+	<tr><th>Family</th><td>[% instance.instanceFamily %]</td></tr>
+	<tr><th>Family Name</th><td>[% instance.instanceFamilyName %]</td></tr>
+	<tr><th>Category</th><td>[% instance.category %]</td></tr>
+	<tr><th>vCPUs</th><td>[% instance.vCpu %]</td></tr>
+	<tr><th>Memory</th><td class="gb">[% instance.ramGb %]</td></tr>
+	<tr><th>Hardware</th><td>[% badgeHardware(instance) %]</td></tr>
+	<tr><th>vCPU Type</th><td>[% IF instance.cpuOverprovisioning %]Shared (over-provisioned)[% ELSE %]Dedicated[% END %]</td></tr>
+	<tr>
+		<th>Local Disk</th>
+		[% IF instance.localDisk %]<td>[% IF instance.localDiskGb %]<span class="gb">[% instance.localDiskGb %]</span>[% ELSE %]yes[% END %]</td>[% ELSE %]<td class="text-muted">no</td>[% END %]
+	</tr>
+	<tr>
+		<th>CPU Architecture</th>
+		[% IF instance.cpuArchitecture %]<td>[% instance.cpuArchitecture %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>CPU Vendor</th>
+		[% IF instance.cpuVendor %]<td>[% instance.cpuVendor %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>CPU Model</th>
+		[% IF instance.cpuModel %]<td>[% instance.cpuModel %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>CPU Base Clock</th>
+		[% IF instance.cpuBaseClockGhz %]<td class="ghz">[% instance.cpuBaseClockGhz %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPUs</th>
+		[% IF instance.gpu %]<td>[% instance.gpuCount %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPU Model</th>
+		[% IF instance.gpuModel %]<td>[% instance.gpuModel %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+	<tr>
+		<th>GPU Memory</th>
+		[% IF instance.gpuMemoryGb %]<td class="gb">[% instance.gpuMemoryGb %]</td>[% ELSE %]<td class="text-muted">-</td>[% END %]
+	</tr>
+</table>
+</div><!-- table-responsive -->
+
+</div> <!-- // col -->
+<div class="col-xxl-6">
+
+<h2>Pricing Summary</h2>
+<p>Lowest Single-AZ pay-per-use price for <code>[% instance.instanceType %]</code> across STACKIT regions.</p>
+
+<div class="table-responsive">
+<table class="table table-hover table-striped table-bordered">
+<tbody>
+	<tr>
+		<th>Lowest price per Hour</th>
+		[% IF instance.minHour %]<td class="eur">[% instance.minHour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+	<tr>
+		<th>Lowest price per Month</th>
+		[% IF instance.minMonth %]<td class="eur">[% instance.minMonth | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+	</tr>
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+
+</div> <!-- // col -->
+</div> <!-- // row -->
+
+
+<h2 id="prices">Price per Region</h2>
+<p>
+Pay-per-use pricing for STACKIT Compute Engine instance type <code>[% instance.instanceType %]</code>
+in each region and availability tier. Region codes with <code>-m</code> are Multi-AZ (metro).
+</p>
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-striped table-bordered"
+	data-classes="table table-sm table-hover table-striped table-bordered"
+	data-toggle="table"
+	data-sort-name="hour"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" data-sortable="true">Region</th>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">Availability</th>
+	<th scope="col" data-sortable="true">SKU</th>
+	<th scope="col" title="Price per hour" data-sortable="true" data-field="hour">per Hour</th>
+	<th scope="col" title="Price per month" data-sortable="true">per Month</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH price IN instancePrices -%]
+<tr>
+<td><a href="/[% price.region %].html" title="STACKIT region [% price.region %]"><code>[% price.region %][% IF price.metro %]-m[% END %]</code></a></td>
+<td>[% price.regionName %]</td>
+<td>[% IF price.metro %]<span class="badge text-bg-warning">Multi-AZ</span>[% ELSE %]<span class="badge text-bg-secondary">Single-AZ</span>[% END %]</td>
+<td><small class="text-muted">[% price.sku %]</small></td>
+[% IF price.priceHour %]<td class="eur">[% price.priceHour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF price.priceMonth %]<td class="eur">[% price.priceMonth | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div><!-- table-responsive -->
+
+[% PROCESS include_footer.tt2 %]

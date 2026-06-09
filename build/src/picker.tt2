@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>STACKIT Instance Picker</title>
+<link rel="canonical" href="[% site.url %]/picker.html">
+[% PROCESS include_favicon.tt2 %]
+<link rel="stylesheet" href="[% site.agGrid.css %]">
+<link rel="stylesheet" href="[% site.agGrid.theme %]">
+<style>
+html         { width: 100%; height: 100%; }
+body         { width: 100%; height: 100%; margin: 0; padding: 0; }
+a            { color: white; }
+.frequency::after { content: " GHz"; }
+.currency::before { content: "€ "; }
+.memory::after    { content: " GB"; }
+.disk::after      { content: " GB"; }
+</style>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<script src="[% site.agGrid.js %]"></script>
+</head>
+<body>
+<div id="myGrid" class="ag-theme-balham-dark" style="height: 100%; width:100%"></div>
+<script src="picker.js?[% timestamp %]"></script>
+</body>
+</html>

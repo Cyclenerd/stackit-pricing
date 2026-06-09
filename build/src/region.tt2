@@ -1,0 +1,64 @@
+[%-
+	url = '/'_ region.region _'.html';
+	title = 'STACKIT Region '_ region.region _' ('_ region.city _')';
+	description = 'All STACKIT Compute Engine instance types available in region '_ region.region _' ('_ region.regionName _') with Single-AZ and Multi-AZ pricing.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>STACKIT Region [% region.region %]</h1>
+
+<blockquote class="blockquote">
+<p>
+STACKIT region <code>[% region.region %]</code> &mdash; [% region.regionName %], [% region.city %], [% region.country %].
+<mark>[% regionInstances.size %]</mark> Compute Engine instance types available
+(<mark>[% region.instanceCountMetro %]</mark> with Multi-AZ).
+All prices in EUR, net, pay-per-use.
+</p>
+</blockquote>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="vcpu"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="5">Instance Type</th>
+	<th scope="col" colspan="2">Single-AZ</th>
+	<th scope="col" colspan="2">Multi-AZ (metro)</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-field="vcpu" data-sortable="true">vCPU</th>
+	<th scope="col" data-sortable="true">Memory</th>
+	<th scope="col" data-sortable="true">Hardware</th>
+	<th scope="col"></th>
+	<th scope="col" data-sortable="true">per Hour</th>
+	<th scope="col" data-sortable="true">per Month</th>
+	<th scope="col" data-sortable="true">per Hour</th>
+	<th scope="col" data-sortable="true">per Month</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH instance IN regionInstances -%]
+<tr>
+<td><a href="/[% instance.instanceType %].html"><code>[% instance.instanceType %]</code></a></td>
+<td class="text-nowrap">[% instance.vCpu %]</td>
+<td class="gb">[% instance.ramGb %]</td>
+<td>[% badgeHardware(instance) %]</td>
+<td>[% badgeFamily(instance) %] [% badgeLocalDisk(instance) %]</td>
+[% IF instance.priceHour %]<td class="eur">[% instance.priceHour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.priceMonth %]<td class="eur">[% instance.priceMonth | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.priceHourMetro %]<td class="eur">[% instance.priceHourMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF instance.priceMonthMetro %]<td class="eur">[% instance.priceMonthMetro | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[% PROCESS include_footer.tt2 %]

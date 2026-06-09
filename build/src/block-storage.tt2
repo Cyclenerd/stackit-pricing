@@ -1,0 +1,129 @@
+[%-
+	url = '/block-storage.html';
+	title = 'STACKIT Block Storage Pricing';
+	description = 'STACKIT Block Storage pricing: capacity volumes and backups (per GB) and fixed performance classes (per disk) with IOPS and throughput for both regions.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>STACKIT Block Storage Pricing</h1>
+
+<blockquote class="blockquote">
+<p>
+STACKIT Block Storage comes in two pricing models:
+<strong>capacity</strong> volumes and backups are billed <em>per GB</em>,
+while <strong>performance</strong> classes are billed <em>per disk</em> (each class has a fixed IOPS / throughput).
+Prices are shown <strong>per hour</strong> and <strong>per month</strong> for both regions (<code>eu01</code>, <code>eu02</code>),
+Single-AZ and Multi-AZ (metro, <code>-m</code>). All prices in <strong>EUR</strong>, net.
+</p>
+</blockquote>
+
+<h2>Capacity &amp; Backups</h2>
+<p>Billed per GB.</p>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sortable="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="2">Storage</th>
+	<th scope="col" colspan="2">eu01 Single-AZ (per GB)</th>
+	<th scope="col" colspan="2">eu01 Multi-AZ (per GB)</th>
+	<th scope="col" colspan="2">eu02 Single-AZ (per GB)</th>
+	<th scope="col" colspan="2">eu02 Multi-AZ (per GB)</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">Kind</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH s IN blockStorage -%]
+[%- NEXT IF s.storageType != 'capacity' -%]
+<tr>
+<td>[% s.name %]</td>
+<td>[% s.storageKind %]</td>
+[% IF s.eu01Hour %]<td class="eur">[% s.eu01Hour | format('%.7f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01Month %]<td class="eur">[% s.eu01Month | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01HourMetro %]<td class="eur">[% s.eu01HourMetro | format('%.7f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01MonthMetro %]<td class="eur">[% s.eu01MonthMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02Hour %]<td class="eur">[% s.eu02Hour | format('%.7f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02Month %]<td class="eur">[% s.eu02Month | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02HourMetro %]<td class="eur">[% s.eu02HourMetro | format('%.7f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02MonthMetro %]<td class="eur">[% s.eu02MonthMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+
+<h2>Performance Classes</h2>
+<p>Billed per disk. Each class provides fixed maximum IOPS and throughput.</p>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sort-name="iops"
+	data-sort-order="asc"
+	data-sortable="true"
+	data-sticky-header="true"
+>
+<thead>
+<tr>
+	<th scope="col" colspan="4">Class</th>
+	<th scope="col" colspan="2">eu01 Single-AZ (per disk)</th>
+	<th scope="col" colspan="2">eu01 Multi-AZ (per disk)</th>
+	<th scope="col" colspan="2">eu02 Single-AZ (per disk)</th>
+	<th scope="col" colspan="2">eu02 Multi-AZ (per disk)</th>
+</tr>
+<tr>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">Class</th>
+	<th scope="col" data-field="iops" data-sortable="true" title="Maximum IO operations per second">Max IOPS</th>
+	<th scope="col" data-sortable="true" title="Maximum throughput">Max MB/s</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+	<th scope="col" data-sortable="true">Hour</th>
+	<th scope="col" data-sortable="true">Month</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH s IN blockStorage -%]
+[%- NEXT IF s.storageType != 'performance' -%]
+<tr>
+<td>[% s.name %]</td>
+<td><code>[% s.class %]</code></td>
+<td data-value="[% s.maxIops %]">[% s.maxIops %]</td>
+<td>[% s.maxThroughputMb %]</td>
+[% IF s.eu01Hour %]<td class="eur">[% s.eu01Hour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01Month %]<td class="eur">[% s.eu01Month | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01HourMetro %]<td class="eur">[% s.eu01HourMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu01MonthMetro %]<td class="eur">[% s.eu01MonthMetro | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02Hour %]<td class="eur">[% s.eu02Hour | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02Month %]<td class="eur">[% s.eu02Month | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02HourMetro %]<td class="eur">[% s.eu02HourMetro | format('%.5f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+[% IF s.eu02MonthMetro %]<td class="eur">[% s.eu02MonthMetro | format('%.2f') %]</td>[% ELSE %]<td class="text-muted">N/A</td>[% END %]
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+
+[% PROCESS include_footer.tt2 %]

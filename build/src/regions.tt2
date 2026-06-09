@@ -1,0 +1,51 @@
+[%-
+	url = '/regions.html';
+	title = 'STACKIT Regions';
+	description = 'All STACKIT Cloud regions (eu01, eu02) with the number of available Compute Engine instance types and Multi-AZ (metro) availability.';
+-%]
+[%- PROCESS include_header.tt2 -%]
+
+<h1>STACKIT Regions</h1>
+
+<blockquote class="blockquote">
+<p>
+STACKIT currently operates <mark>[% regions.size %]</mark> regions in the European Union.
+Each region offers a Single-AZ tier and a Multi-AZ (metro) tier.
+Multi-AZ instance types use the region code with a <code>-m</code> suffix (e.g. <code>eu01-m</code>).
+</p>
+</blockquote>
+
+<div class="table-responsive">
+<table
+	class="table table-sm table-hover table-bordered"
+	data-classes="table table-sm table-hover table-bordered"
+	data-toggle="table"
+	data-sortable="true"
+>
+<thead>
+<tr>
+	<th scope="col" data-sortable="true">Code</th>
+	<th scope="col" data-sortable="true">Name</th>
+	<th scope="col" data-sortable="true">City</th>
+	<th scope="col" data-sortable="true">Country</th>
+	<th scope="col" data-sortable="true">Continent</th>
+	<th scope="col" data-sortable="true" title="Instance types available (Single-AZ)">Instance Types</th>
+	<th scope="col" data-sortable="true" title="Instance types available with Multi-AZ">Multi-AZ Types</th>
+</tr>
+</thead>
+<tbody>
+[%- FOREACH region IN regions -%]
+<tr>
+<td><a href="/[% region.region %].html" title="STACKIT region [% region.region %]"><code>[% region.region %]</code></a></td>
+<td>[% region.regionName %]</td>
+<td>[% region.city %]</td>
+<td>[% region.country %]</td>
+<td>[% region.continent %]</td>
+<td>[% region.instanceCount %]</td>
+<td>[% region.instanceCountMetro %]</td>
+</tr>
+[%- END -%]
+</tbody>
+</table>
+</div> <!-- // table-responsive -->
+[% PROCESS include_footer.tt2 %]
