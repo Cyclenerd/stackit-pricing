@@ -9,7 +9,7 @@ No more hopping between docs – filter, sort, and choose the optimal instance t
 
 > [!IMPORTANT]
 > This is an unofficial, community-built tool. It is **not** affiliated with,
-> endorsed by, or sponsored by STACKIT or Schwarz IT.
+> endorsed by, or sponsored by STACKIT or Schwarz Digits.
 
 ## ✨ Features
 
@@ -65,5 +65,5 @@ All files in this repository are under the [Apache License, Version 2.0](./LICEN
 Please note:
 
 * No warranty
-* Not an official STACKIT / Schwarz IT product
+* Not an official STACKIT / Schwarz Digits product
 * The accuracy of the data is not guaranteed
