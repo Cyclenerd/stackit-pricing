@@ -30,7 +30,7 @@ jobs:
             sqlite3
 
       - name: 🛎️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🔨 Run build script
         run: |
